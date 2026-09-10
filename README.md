@@ -1,34 +1,43 @@
-# Dmitry Zhuravlev — Cloud DevOps, Platform Engineering & AI Infrastructure Portfolio
+# Dmitry Zhuravlev
+
+## Cloud DevOps, Platform Engineering & AI Infrastructure Portfolio
 
 Production-grade cloud platforms, AI infrastructure, reliability-focused systems, and secure delivery solutions built around operational challenges.
+
+### GitHub Developer Program Member
+
+Recognized as a developer building integrations, automation, and tooling on the GitHub platform.
 
 **Focus Areas:** AI Infrastructure • Distributed Agent Systems • DevSecOps • Platform Engineering • SRE • Cloud Architecture • Kubernetes • CI/CD • FinOps • Infrastructure as Code • Observability • Automation
 
 ---
 
-## Featured Platform Projects
+# Featured Platform Projects
 
 ## 1. AI Infrastructure & Operations Platform
 
 ### [AI Operations Platform](https://github.com/DimitryZH/ai-operations-platform)
 
-AI operations platform designed to coordinate domain-specific agents across SRE, CI/CD, secure delivery, FinOps, and cloud operations.
+GCP-first AI-native operations control plane for governed DevOps, SRE, Platform Engineering, FinOps, security, and cloud operations workflows.
 
 **Core Components:**
 
-- AI agents — domain-specific operational agents for diagnostics, delivery, cost analysis, and infrastructure workflows  
-- Agent orchestration — coordination layer for multi-agent execution across connected engineering systems  
-- Python — platform services, integrations, and automation components  
-- OpenTelemetry — telemetry collection and tracing across agent workflows and platform services  
-- Cloud Run and Compute Engine — hybrid execution model for stateless services and stateful agent workloads  
-- Terraform — modular provisioning of shared platform infrastructure and isolated agent environments  
+- Python control plane — durable task, attempt, review, and execution workflow management  
+- PostgreSQL — persistent operational state independent of agent sessions  
+- Executor adapters — replaceable agent and automation backends behind capability boundaries  
+- Capability verification — validates executor capabilities before active attempts  
+- Human review — explicit approval gates for governed operational actions  
+- GCP Stateful Agent Runtime — persistent private runtime foundation for AI agents  
+- Secret Manager & IAP — protected secrets and operator access  
+- GitHub — repository workflows, validation evidence, and auditable engineering changes  
 
 **What this project delivers:**
 
-- Unified control plane for AI-assisted cloud operations  
-- Distributed agent architecture spanning multiple engineering domains  
-- Integration path for SRE, CI/CD, FinOps, and secure delivery systems  
-- Governance boundaries for safe, observable, and progressively enabled agent actions  
+- Durable orchestration independent of individual AI agent sessions  
+- Governed execution with explicit human approval boundaries  
+- Replaceable executors instead of dependency on a single agent framework  
+- Capability-aware dispatch and controlled retry workflows  
+- Foundation for coordinated AI-assisted operations across SRE, CI/CD, FinOps, security, and cloud platforms  
 
 ---
 
@@ -36,49 +45,51 @@ AI operations platform designed to coordinate domain-specific agents across SRE,
 
 ### [CI Build Platform](https://github.com/DimitryZH/ci-build-platform)
 
-Scalable build platform based on ephemeral self-hosted runners for cloud CI workloads.
+GCP-based CI platform for on-demand ephemeral self-hosted GitHub Actions runners with a Cloud Run controller and Terraform-managed GCE infrastructure.
 
 **Core Components:**
 
-- GitHub Actions — orchestration of CI workflows and job scheduling  
-- Compute Engine — ephemeral runners providing isolated execution environments  
-- Cloud Run — control plane service managing runner lifecycle and scaling decisions  
-- Terraform — dynamic provisioning and teardown of compute resources  
-- Docker — standardized build environment and artifact packaging  
-- Container Registry — storage and distribution of build artifacts  
-- Cloud Logging & Monitoring — visibility into runner execution, failures, and system behavior  
+- GitHub Actions — runner request and CI workflow orchestration  
+- GitHub REST API — short-lived runner registration tokens  
+- Cloud Run — controller for authenticated provisioning requests  
+- Terraform — GCE runner infrastructure provisioning and management  
+- Compute Engine — hosts the self-hosted runner  
+- Docker / Docker Hub — container image build and publishing  
 
 **What this project delivers:**
 
-- On-demand provisioning of isolated CI runners  
-- Scalable parallel build execution  
-- Automated lifecycle management of build infrastructure  
-- Platform-style abstraction over CI workloads  
+- On-demand self-hosted runner provisioning  
+- Ephemeral GitHub runner registration  
+- Isolated CI execution on GCE  
+- Automated VM shutdown after workload completion  
+- Historical end-to-end workflow validation  
 
 ---
 
 ## 3. SRE & Reliability Engineering Platform
 
-### [SLO-Driven Delivery Platform on GKE](https://github.com/DimitryZH/sre-platform)
+### [SLO-Driven Progressive Delivery Platform](https://github.com/DimitryZH/sre-platform)
 
-GitOps-based platform implementing SLO- and error budget–driven release governance for Kubernetes workloads.
+GitOps-based SRE platform implementing SLO- and error budget–driven release governance with validated canary promotion, automated abort, and recovery workflows on GKE.
 
 **Core Components:**
 
-- Kubernetes (GKE) — multi-environment cluster setup with namespace isolation and autoscaling for workload segmentation  
-- Argo CD — GitOps control plane implementing the app-of-apps pattern and environment-based deployment promotion  
-- Argo Rollouts — canary deployment strategy with analysis templates driven by Prometheus metrics  
-- Prometheus — metrics collection and multi-window SLO evaluation  
-- Grafana — visualization of SLOs, error budgets, and live rollout health signals  
-- Helm — reusable and environment-specific configuration management for microservice deployment  
-- Terraform — modular infrastructure provisioning for clusters, networking, and platform components  
+- Kubernetes (GKE) — multi-environment runtime for SLO-governed application delivery  
+- Argo CD — GitOps control plane for declarative application deployment  
+- Argo Rollouts — canary delivery with SLO-based analysis gates at 10% and 50%  
+- Prometheus — multi-window SLO, error-ratio, and burn-rate evaluation  
+- Grafana — visualization of SLOs, error budgets, rollout health, and decision signals  
+- k6 — deterministic baseline and failure traffic for validating rollout decisions  
+- Helm — reusable application and platform configuration  
+- Terraform — modular provisioning of GKE and supporting infrastructure  
 
 **What this project delivers:**
 
-- Progressive delivery controlled by observability signals  
-- SLO- and error budget–driven deployment decisions  
-- Automated promotion and rollback strategies  
-- Platform-level control over service reliability and release safety  
+- SLO-gated progressive delivery  
+- Automated canary promotion or abort based on service-level signals  
+- Multi-window burn-rate and error-budget evaluation  
+- Deterministic failure injection and rollout validation  
+- Operational recovery from failed releases  
 
 ---
 

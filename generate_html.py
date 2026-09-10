@@ -1,5 +1,6 @@
 import html
 import os
+import re
 from datetime import datetime
 from pathlib import Path
 
@@ -8,6 +9,10 @@ import markdown
 
 README_PATH = Path("README.md")
 OUTPUT_PATH = Path("index.html")
+PORTFOLIO_HEADING_PATTERN = re.compile(
+    r"^<h1>(?P<name>[^<]+)</h1>\n<h2>(?P<title>[^<]+)</h2>",
+    re.MULTILINE,
+)
 
 
 def format_build_date(raw_value: str) -> str:
@@ -34,6 +39,20 @@ def build_commit_link(repo_url: str, commit_sha: str) -> str:
     return f'<a href="{safe_url}/commit/{html.escape(commit_sha, quote=True)}">{safe_sha}</a>'
 
 
+def format_portfolio_heading(html_body: str) -> str:
+    """Render the README name and portfolio title as a single styled heading block."""
+
+    def replace_heading(match: re.Match[str]) -> str:
+        return (
+            '<div class="portfolio-heading">\n'
+            f'  <h1 class="name">{match.group("name")}</h1>\n'
+            f'  <div class="portfolio-title">{match.group("title")}</div>\n'
+            "</div>"
+        )
+
+    return PORTFOLIO_HEADING_PATTERN.sub(replace_heading, html_body, count=1)
+
+
 def main() -> None:
     if not README_PATH.exists():
         raise FileNotFoundError(f"{README_PATH} was not found")
@@ -50,6 +69,8 @@ def main() -> None:
         ],
         output_format="html5",
     )
+
+    html_body = format_portfolio_heading(html_body)
 
     commit_sha = os.getenv("COMMIT_SHA", "")
     build_date = format_build_date(os.getenv("BUILD_DATE", ""))
@@ -89,9 +110,32 @@ h1, h2, h3, h4 {{
     color: #0f172a;
 }}
 
-h1 {{
-    margin: 0 0 20px;
-    font-size: clamp(2rem, 4vw, 3rem);
+.hero-banner {{
+    width: 94%;
+    margin: 0 auto 36px;
+}}
+
+.hero-banner img {{
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+}}
+
+.portfolio-heading {{
+    margin-bottom: 24px;
+}}
+
+.name {{
+    margin: 0 0 6px;
+    font-size: clamp(2.2rem, 4vw, 2.8rem);
+}}
+
+.portfolio-title {{
+    font-size: clamp(1.35rem, 2.6vw, 1.7rem);
+    font-weight: 600;
+    line-height: 1.35;
+    color: #334155;
 }}
 
 h2 {{
@@ -158,6 +202,19 @@ hr {{
         padding: 0 16px;
     }}
 
+    .hero-banner {{
+        width: 100%;
+        margin-bottom: 28px;
+    }}
+
+    .name {{
+        font-size: 2rem;
+    }}
+
+    .portfolio-title {{
+        font-size: 1.25rem;
+    }}
+
     h2 {{
         margin-top: 38px;
     }}
@@ -166,6 +223,13 @@ hr {{
 </head>
 
 <body>
+
+<div class="hero-banner">
+  <img
+    src="assets/portfolio_pages_banner.jpg"
+    alt="Dmitry Zhuravlev — Cloud DevOps Engineer and GitHub Developer Program Member"
+  >
+</div>
 
 {html_body}
 
